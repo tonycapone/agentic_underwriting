@@ -1,30 +1,57 @@
-# Agentic Underwriting System
+# Agentic Underwriting System - Proof of Concept
 
 This repository contains a proof-of-concept implementation of an agentic underwriting system for life insurance applications. The system uses AI agents built with the Strands framework to analyze insurance applications, detect medical impairments, and calculate risk scores.
 
-## Quickstart
+The main value is in the **two Jupyter notebooks** (`detection_agent.ipynb` and `scoring_agent.ipynb`) that demonstrate the complete workflow.
+
+## What This Demonstrates
+
+This proof-of-concept shows how AI agents built with the Strands framework can:
+
+1. **Detect medical impairments** by analyzing multiple data sources (applications, prescription history, lab results, MIB records)
+2. **Calculate risk scores** by consulting underwriting guidelines and applying rating tables
+3. **Generate audit trails** with detailed explanations for each decision
+
+The notebooks demonstrate a complete end-to-end workflow from raw data ingestion to final risk scoring.
+
+## How to Use This Demo
+
+The entire demonstration is contained in two interactive notebooks with extensive documentation:
+
+### 1. Detection Agent (`agent/detection_agent.ipynb`)
+**What it does:** Analyzes multiple data sources to identify medical impairments and extract scoring factors.
+
+Open this notebook first to see how the agent:
+- Ingests JSON data from applications, RX history, labs, and MIB
+- Uses semantic search to find relevant underwriting guidelines
+- Identifies impairments and compiles evidence from multiple sources
+- Outputs structured JSON ready for risk scoring
+
+**Try changing:** The `mock_data_path` variable to switch between test cases (`diabetes_cardiovascular` or `hypertension`)
+
+### 2. Scoring Agent (`agent/scoring_agent.ipynb`)
+**What it does:** Calculates risk scores by applying underwriting rules to detected impairments.
+
+Open this notebook to see how the agent:
+- Looks up rating tables for each impairment
+- Applies scoring factors to determine debits and credits
+- Uses a calculator tool for exact arithmetic
+- Generates detailed explanations for audit trails
+
+**Try changing:** The `impairments_payload` variable to test different clinical scenarios (e.g., higher blood pressure, additional complications)
+
+### Quick Start
 
 ```bash
-# Clone the repository
-git clone https://github.com/tonycapone/agentic_underwriting.git
-cd agentic_underwriting
-
 # Install dependencies
 pip install -r agent/requirements.txt
 
 # Launch Jupyter notebook
 jupyter notebook
+
+# Open agent/detection_agent.ipynb and run all cells
+# Then open agent/scoring_agent.ipynb and run all cells
 ```
-
-### Running the Agents
-
-1. **Detection Agent**: Open `agent/detection_agent.ipynb` and run all cells
-   - Change `mock_data_path` to use different test cases: 
-     - `../mock_data/diabetes_cardiovascular`
-     - `../mock_data/hypertension`
-
-2. **Scoring Agent**: Open `agent/scoring_agent.ipynb` and run all cells
-   - Edit the `impairments_payload` variable to test different scenarios
 
 ## Repository Structure
 
@@ -49,118 +76,84 @@ agentic_underwriting/
     └── type2_diabetes.md           # Guidelines for Type 2 Diabetes
 ```
 
-## System Overview
+## Why This Matters
 
-This system demonstrates an AI-driven approach to life insurance underwriting using agents to:
+Traditional underwriting requires trained professionals to:
+- Review multiple data sources manually
+- Cross-reference underwriting guidelines
+- Calculate risk scores using complex rating tables
+- Document their reasoning for compliance
 
-1. **Detect impairments** from multiple data sources (applications, prescription history, lab results, MIB records)
-2. **Score the risk** associated with each impairment based on underwriting guidelines
-3. **Generate an overall risk assessment** to support underwriting decisions
+**This takes 30-90 minutes per application.**
 
-The implementation uses the Strands agent framework to create specialized AI agents that can process structured data and follow underwriting guidelines.
+This proof-of-concept shows how AI agents can perform the same analysis in seconds while:
+- Maintaining consistency across all decisions
+- Providing detailed audit trails
+- Scaling to handle thousands of applications
+- Adapting to new rules by updating markdown files
 
-## Getting Started
+The notebooks demonstrate this end-to-end.
+
+## What's Included
+
+### The Notebooks (Main Focus)
+- **`agent/detection_agent.ipynb`** - Impairment detection from multiple data sources
+- **`agent/scoring_agent.ipynb`** - Risk scoring using underwriting guidelines
+
+### Supporting Materials
+- **`mock_data/`** - Synthetic JSON test data for two clinical scenarios
+- **`underwriting_manual/`** - Markdown files with rating tables and underwriting rules
+- **`agent/requirements.txt`** - Python dependencies
 
 ### Prerequisites
 
 - Python 3.8+
-- AWS account with Bedrock access (optional, for hosted knowledge base)
-- Basic understanding of life insurance underwriting concepts
-
-### Installation
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/tonycapone/agentic_underwriting.git
-   cd agentic_underwriting
-   ```
-
-2. Install dependencies:
-   ```bash
-   pip install -r agent/requirements.txt
-   ```
-
-### Usage
-
-#### 1. Impairment Detection Agent
-
-The detection agent (`detection_agent.ipynb`) identifies medical impairments from application data by:
-
-- Parsing XML feeds from multiple sources
-- Detecting potential impairments (e.g., diabetes, hypertension)
-- Extracting relevant scoring factors for each impairment
-- Outputting a structured JSON payload for risk scoring
-
-To run the detection agent:
-
-1. Open the notebook in Jupyter:
-   ```bash
-   jupyter notebook agent/detection_agent.ipynb
-   ```
-
-2. Configure the notebook:
-   - Set the `mock_data_path` to point to one of the sample cases
-   - Optionally configure a Bedrock Knowledge Base ID if using hosted knowledge base
-
-3. Run the notebook cells to see the agent detect impairments from the selected case
-
-#### 2. Risk Scoring Agent
-
-The scoring agent (`scoring_agent.ipynb`) calculates risk scores for detected impairments by:
-
-- Referencing underwriting guidelines for each impairment
-- Evaluating the severity of each condition based on scoring factors
-- Calculating debits and credits according to rating tables
-- Producing a final risk assessment score
-
-To run the scoring agent:
-
-1. Open the notebook in Jupyter:
-   ```bash
-   jupyter notebook agent/scoring_agent.ipynb
-   ```
-
-2. Configure the notebook:
-   - You can modify the `impairments_payload` variable to test different scenarios
-
-3. Run the notebook cells to see the agent evaluate the risk score
-
-## Knowledge Base
-
-The `underwriting_manual` directory contains markdown files with underwriting guidelines for various impairments:
-
-- Rating tables with debits/credits based on severity factors
-- Required evidence documentation
-- Postpone/decline criteria
-- Treatment considerations
-
-The system can use these files directly as a local knowledge base or reference them through an AWS Bedrock Knowledge Base.
+- AWS account with Bedrock access (for running the notebooks)
+- Jupyter Notebook or JupyterLab
 
 ## Test Cases
 
-The repository includes mock data for multiple test scenarios:
+The repository includes synthetic data for two clinical scenarios:
 
-1. **Diabetes + Cardiovascular**: Applicant with Type 2 Diabetes and cardiovascular risk factors
-2. **Hypertension**: Applicant with a history of high blood pressure
+1. **`diabetes_cardiovascular/`** - Complex case with Type 2 Diabetes, hypertension, and cardiovascular risk factors
+2. **`hypertension/`** - Simpler case with controlled blood pressure and good lab results
 
-Each case includes JSON files simulating different data sources that would be available to an underwriter.
+Each case includes JSON files simulating real data sources:
+- Application data (demographics, questionnaire answers)
+- Prescription history (medications, dosages, fill dates)
+- Lab results (blood work, A1C, lipid panels)
+- MIB records (prior insurance applications)
 
-## Development
+**Note:** All data has been anonymized with masked company names and addresses while preserving clinical values.
 
-To extend this proof of concept:
+## Extending This Demo
 
-1. Add new impairment guidelines to the knowledge base
-2. Create additional test cases with relevant data
-3. Refine the agent prompts and tools to handle more complex scenarios
-4. Implement workflow automation to process cases sequentially
+The notebooks are designed to be modified and extended:
 
-## Dependencies
+1. **Add new impairments:** Create markdown files in `underwriting_manual/` with rating tables
+2. **Test new scenarios:** Modify the mock data JSON files or create new test cases
+3. **Refine agent behavior:** Adjust the system prompts in the notebooks
+4. **Add new tools:** Give agents additional capabilities (e.g., database queries, API calls)
 
-- `boto3` - AWS SDK for Python
-- `strands-agents` - Agent framework for AI systems
-- `numpy` - Numerical computing library
-- `scipy` - Scientific computing library
+The beauty of this architecture is that updating underwriting rules only requires editing markdown files - no code changes needed.
 
-## License
+## Technical Details
 
-This repository is for demonstration purposes only. All rights reserved.
+### Dependencies
+- `boto3` - AWS SDK for Bedrock API access
+- `strands-agents` - Agent framework for orchestrating LLM tool calls
+- `numpy` - Vector similarity calculations for local knowledge base
+- `lxml` - JSON parsing (legacy from XML version)
+
+### Architecture Highlights
+
+The notebooks demonstrate key agentic patterns:
+- **Tool use:** Agents call functions to search knowledge bases and perform calculations
+- **Multi-step reasoning:** Agents break complex tasks into sequential steps
+- **Semantic search:** Vector embeddings find relevant guidelines
+- **Structured output:** Agents produce JSON for downstream processing
+- **Audit trails:** Every decision includes detailed explanations
+
+## Note
+
+This is demonstration code, not a production application.
