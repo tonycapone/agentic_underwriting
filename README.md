@@ -36,11 +36,11 @@ agentic_underwriting/
 │   └── requirements.txt            # Dependencies
 ├── mock_data/                      # Sample data for testing
 │   ├── diabetes_cardiovascular/    # Sample case: Diabetes + cardiovascular
-│   │   ├── mock_application.xml    # Application XML
-│   │   ├── mock_intelliscript_rx.xml # Prescription history
-│   │   ├── mock_lab_results.xml    # Lab test results
-│   │   ├── mock_mib_response.xml   # Medical Information Bureau response
-│   │   └── mock_rx_data.csv        # Prescription data in CSV format
+│   │   ├── mock_application.json    # Application JSON
+│   │   ├── mock_intelliscript_rx.json # Prescription history
+│   │   ├── mock_lab_results.json    # Lab test results
+│   │   ├── mock_mib_response.json   # Medical Information Bureau response
+│   │   └── mock_rx_data.json        # Prescription data in JSON format
 │   └── hypertension/               # Sample case: Hypertension
 └── underwriting_manual/            # Reference materials for scoring
     ├── hypertension.md             # Guidelines for hypertension
@@ -143,7 +143,7 @@ The repository includes mock data for multiple test scenarios:
 1. **Diabetes + Cardiovascular**: Applicant with Type 2 Diabetes and cardiovascular risk factors
 2. **Hypertension**: Applicant with a history of high blood pressure
 
-Each case includes XML files simulating different data sources that would be available to an underwriter.
+Each case includes JSON files simulating different data sources that would be available to an underwriter.
 
 ## Development
 
@@ -157,7 +157,6 @@ To extend this proof of concept:
 ## Dependencies
 
 - `boto3` - AWS SDK for Python
-- `lxml` - XML processing library
 - `strands-agents` - Agent framework for AI systems
 - `numpy` - Numerical computing library
 - `scipy` - Scientific computing library
