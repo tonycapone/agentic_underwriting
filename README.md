@@ -57,23 +57,27 @@ jupyter notebook
 
 ```
 agentic_underwriting/
-├── agent/                          # AI agent implementations
-│   ├── detection_agent.ipynb  # Impairment detection agent
-│   ├── scoring_agent.ipynb # Risk scoring agent
-│   └── requirements.txt            # Dependencies
-├── mock_data/                      # Sample data for testing
-│   ├── diabetes_cardiovascular/    # Sample case: Diabetes + cardiovascular
-│   │   ├── mock_application.json    # Application JSON
-│   │   ├── mock_intelliscript_rx.json # Prescription history
-│   │   ├── mock_lab_results.json    # Lab test results
-│   │   ├── mock_mib_response.json   # Medical Information Bureau response
-│   │   └── mock_rx_data.json        # Prescription data in JSON format
-│   └── hypertension/               # Sample case: Hypertension
-└── underwriting_manual/            # Reference materials for scoring
-    ├── hypertension.md             # Guidelines for hypertension
-    ├── lab_values.md               # Reference ranges for lab tests
-    ├── type1_diabetes.md           # Guidelines for Type 1 Diabetes
-    └── type2_diabetes.md           # Guidelines for Type 2 Diabetes
+├── agent/
+│   ├── detection_agent.ipynb
+│   ├── scoring_agent.ipynb
+│   └── requirements.txt
+├── mock_data/
+│   ├── diabetes_cardiovascular/
+│   │   ├── mock_application.json
+│   │   ├── mock_intelliscript_rx.json
+│   │   ├── mock_lab_results.json
+│   │   ├── mock_mib_response.json
+│   │   └── mock_rx_data.json
+│   └── hypertension/
+│       ├── mock_application.json
+│       ├── mock_intelliscript_rx.json
+│       ├── mock_lab_results.json
+│       └── mock_mib_response.json
+└── underwriting_manual/
+    ├── hypertension.md
+    ├── lab_values.md
+    ├── type1_diabetes.md
+    └── type2_diabetes.md
 ```
 
 ## Why This Matters
